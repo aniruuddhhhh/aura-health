@@ -1,0 +1,131 @@
+# ═══════════════════════════════════════════════════════════════════════════
+# AURA .gitignore - What NOT to upload to GitHub
+# ═══════════════════════════════════════════════════════════════════════════
+
+# ─── API Keys & Secrets (CRITICAL - NEVER COMMIT!) ───
+.env
+.env.local
+.env.production
+.env.*.local
+secrets.toml
+.streamlit/secrets.toml
+*.key
+api_keys.txt
+
+# ─── Databases (Generated automatically, too large) ───
+*.db
+*.sqlite
+*.sqlite3
+aura_health.db
+aura_session.db
+chroma_db/
+aura_vector_db_hf/
+aura_vector_db/
+vector_store/
+
+# ─── Real/Personal Data (Privacy + size) ───
+AURA_Final_Combined_HR*.csv
+dailyActivity_merged.csv
+sleepDay_merged.csv
+AURA_Realistic_Journals*.csv
+hrv5mins_session.csv
+Steps_5min_sessions.csv
+METs_5min_sessions.csv
+calories_5min_sessions.csv
+Intensities_5min_sessions.csv
+hourly_activity_combined.csv
+
+# ─── Python Cache ───
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+
+# ─── Virtual Environments ───
+venv/
+env/
+ENV/
+.venv
+virtualenv/
+
+# ─── IDE & Editors ───
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.project
+.pydevproject
+.settings/
+
+# ─── OS Files ───
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ─── Logs ───
+*.log
+logs/
+
+# ─── Audio Files (Voice recordings) ───
+recordings/
+*.wav
+*.mp3
+*.ogg
+*.m4a
+
+# ─── Build/Distribution ───
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# ─── Jupyter Notebooks ───
+.ipynb_checkpoints/
+*.ipynb
+
+# ─── Model Files (Too large, downloaded automatically) ───
+*.pt
+*.pth
+*.bin
+*.safetensors
+models/
+.cache/
+
+# ─── Temporary Files ───
+*.tmp
+*.bak
+*.backup
+temp/
+tmp/
+
+# ─── Documentation Drafts (Just for you, not for GitHub) ───
+DEPLOY_IN_15_MINUTES.md
+ADDITIONAL_IMPROVEMENTS_*.md
+RECRUITER_PERSPECTIVE_*.md
+AI_ENGINEER_ENHANCEMENTS.md
+QUICK_WINS_*.md
+VOICE_TRANSCRIPTION_*.md
+VOICE_MULTILINGUAL_*.md
+FEATURE_COMPARISON.md
+DEPLOYMENT_PACKAGE_*.md
+COMPLETE_PROJECT_*.md
+SYSTEM_DOCUMENTATION_*.md
+FILES_AND_METHODOLOGIES.md
+
+# ─── Zip Files ───
+*.zip
+*.tar.gz
+*.rar
