@@ -1,6 +1,10 @@
 import streamlit as st
 import os
 import time
+import warnings
+warnings.filterwarnings("ignore")
+import os
+os.environ["STREAMLIT_WATCHER_TYPE"] = "none"
 
 st.set_page_config(
     page_title="AURA",
