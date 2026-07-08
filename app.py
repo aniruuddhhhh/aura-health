@@ -162,8 +162,8 @@ with st.sidebar:
     st.divider()
     
     st.markdown("**Links**")
-    st.markdown("[GitHub](https://github.com/yourusername/aura-health)")
-    st.markdown("[LinkedIn](https://linkedin.com/in/yourprofile)")
+    st.markdown("[GitHub](https://github.com/aniruuddhhhh/aura-health)")
+    st.markdown("[LinkedIn](https://www.linkedin.com/in/anirudh-s-22ab19271)")
     
     st.divider()
     
