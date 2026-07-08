@@ -1,17 +1,18 @@
 """
 AURA - Health Analytics Platform
-Clean professional UI - desktop version
+Desktop version with GUARANTEED visible sidebar
 """
 
 import streamlit as st
 import os
 import time
 
+# CRITICAL: Set page config FIRST, before anything else
 st.set_page_config(
     page_title="AURA",
     page_icon="📊",
     layout="wide",
-    initial_sidebar_state="expanded",
+    initial_sidebar_state="expanded",  # Force sidebar to be visible
 )
 
 # ═══════════════════════════════════════════════════════════════════════════
@@ -53,7 +54,7 @@ except Exception as e:
     st.stop()
 
 # ═══════════════════════════════════════════════════════════════════════════
-# CSS - Minimal, professional
+# CSS - Ensure sidebar is always visible
 # ═══════════════════════════════════════════════════════════════════════════
 
 st.markdown("""
@@ -67,9 +68,17 @@ st.markdown("""
     color: #fafafa;
   }
   
+  /* IMPORTANT: Ensure sidebar is always visible on desktop */
   [data-testid="stSidebar"] {
     background: #1a1d23;
     border-right: 1px solid #2a2f38;
+    min-width: 240px !important;
+  }
+  
+  /* Show the sidebar collapse button */
+  [data-testid="collapsedControl"] {
+    display: block !important;
+    visibility: visible !important;
   }
   
   .stButton > button {
@@ -84,7 +93,9 @@ st.markdown("""
     background: #1d4ed8;
   }
   
-  #MainMenu, footer, header { visibility: hidden; }
+  /* Only hide the top menu - keep sidebar toggle visible */
+  #MainMenu { visibility: hidden; }
+  footer { visibility: hidden; }
   
   .journal-entry {
     background: #1a1d23;
@@ -116,7 +127,7 @@ if "demo_query" not in st.session_state:
     st.session_state.demo_query = None
 
 # ═══════════════════════════════════════════════════════════════════════════
-# SIDEBAR
+# SIDEBAR - Explicitly rendered
 # ═══════════════════════════════════════════════════════════════════════════
 
 with st.sidebar:
@@ -125,12 +136,28 @@ with st.sidebar:
     
     st.divider()
     
-    page = st.radio(
-        "Navigation",
-        ["Home", "Chat", "Journal", "Examples", "About"],
-        label_visibility="collapsed",
-    )
-    st.session_state.page = page
+    # Navigation with clear labels
+    st.markdown("**Navigation**")
+    
+    if st.button("🏠 Home", use_container_width=True, key="nav_home"):
+        st.session_state.page = "Home"
+        st.rerun()
+    
+    if st.button("💬 Chat", use_container_width=True, key="nav_chat"):
+        st.session_state.page = "Chat"
+        st.rerun()
+    
+    if st.button("📓 Journal", use_container_width=True, key="nav_journal"):
+        st.session_state.page = "Journal"
+        st.rerun()
+    
+    if st.button("💡 Examples", use_container_width=True, key="nav_examples"):
+        st.session_state.page = "Examples"
+        st.rerun()
+    
+    if st.button("👤 About", use_container_width=True, key="nav_about"):
+        st.session_state.page = "About"
+        st.rerun()
     
     st.divider()
     
@@ -140,7 +167,7 @@ with st.sidebar:
     
     st.divider()
     
-    if st.button("Clear chat history", use_container_width=True):
+    if st.button("Clear chat history", use_container_width=True, key="clear_chat"):
         clear_chat_history()
         st.session_state.messages = []
         st.rerun()
@@ -191,7 +218,7 @@ if st.session_state.page == "Home":
     
     st.markdown("---")
     st.markdown("### Try it")
-    st.markdown("Navigate to **Chat** or **Examples** to explore the system.")
+    st.markdown("Use the navigation on the **left sidebar** to explore Chat, Journal, or Examples.")
 
 # ═══════════════════════════════════════════════════════════════════════════
 # PAGE: CHAT
@@ -426,5 +453,6 @@ elif st.session_state.page == "About":
     st.markdown("### Contact")
     st.markdown("""
     - anirudhak1269@gmail.com
+    - [GitHub](https://github.com/aniruuddhhhh)
     - [LinkedIn](https://www.linkedin.com/in/anirudh-s-22ab19271)
     """)
