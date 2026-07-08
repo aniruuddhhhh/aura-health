@@ -1,10 +1,11 @@
+"""
+AURA - Health Analytics Platform
+Clean professional UI - desktop version
+"""
+
 import streamlit as st
 import os
 import time
-import warnings
-warnings.filterwarnings("ignore")
-import os
-os.environ["STREAMLIT_WATCHER_TYPE"] = "none"
 
 st.set_page_config(
     page_title="AURA",
@@ -12,6 +13,10 @@ st.set_page_config(
     layout="wide",
     initial_sidebar_state="expanded",
 )
+
+# ═══════════════════════════════════════════════════════════════════════════
+# AUTO-INITIALIZE DATABASES
+# ═══════════════════════════════════════════════════════════════════════════
 
 @st.cache_resource
 def initialize_aura():
@@ -25,6 +30,10 @@ def initialize_aura():
     return True
 
 initialize_aura()
+
+# ═══════════════════════════════════════════════════════════════════════════
+# IMPORTS
+# ═══════════════════════════════════════════════════════════════════════════
 
 from session_manager import (
     save_message, load_chat_history, clear_chat_history,
@@ -43,26 +52,26 @@ except Exception as e:
     st.error(f"Import error: {e}")
     st.stop()
 
+# ═══════════════════════════════════════════════════════════════════════════
+# CSS - Minimal, professional
+# ═══════════════════════════════════════════════════════════════════════════
+
 st.markdown("""
 <style>
-  /* Use system fonts - looks more native */
   html, body, [class*="css"] { 
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; 
   }
   
-  /* Cleaner background - less "designed" */
   .stApp {
     background: #0e1117;
     color: #fafafa;
   }
   
-  /* Standard sidebar */
   [data-testid="stSidebar"] {
     background: #1a1d23;
     border-right: 1px solid #2a2f38;
   }
   
-  /* Simple buttons - not gradient */
   .stButton > button {
     background: #2563eb;
     color: white;
@@ -75,10 +84,8 @@ st.markdown("""
     background: #1d4ed8;
   }
   
-  /* Hide Streamlit branding */
   #MainMenu, footer, header { visibility: hidden; }
   
-  /* Simple journal entry styling */
   .journal-entry {
     background: #1a1d23;
     padding: 12px 16px;
@@ -95,6 +102,10 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
+# ═══════════════════════════════════════════════════════════════════════════
+# SESSION STATE
+# ═══════════════════════════════════════════════════════════════════════════
+
 if "messages" not in st.session_state:
     st.session_state.messages = load_chat_history()
 
@@ -104,8 +115,11 @@ if "page" not in st.session_state:
 if "demo_query" not in st.session_state:
     st.session_state.demo_query = None
 
+# ═══════════════════════════════════════════════════════════════════════════
+# SIDEBAR
+# ═══════════════════════════════════════════════════════════════════════════
+
 with st.sidebar:
-    
     st.markdown("## AURA")
     st.caption("Health Analytics")
     
@@ -131,11 +145,16 @@ with st.sidebar:
         st.session_state.messages = []
         st.rerun()
 
+# ═══════════════════════════════════════════════════════════════════════════
+# PAGE: HOME
+# ═══════════════════════════════════════════════════════════════════════════
+
 if st.session_state.page == "Home":
     st.title("AURA")
     st.markdown("##### Health analytics with hybrid SQL generation and semantic journal search")
     
     st.markdown("---")
+    
     st.markdown("""
     AURA combines structured biometric data with semantic journal search to provide 
     contextualized health insights. The system uses template-based and LLM-generated 
@@ -174,6 +193,9 @@ if st.session_state.page == "Home":
     st.markdown("### Try it")
     st.markdown("Navigate to **Chat** or **Examples** to explore the system.")
 
+# ═══════════════════════════════════════════════════════════════════════════
+# PAGE: CHAT
+# ═══════════════════════════════════════════════════════════════════════════
 
 elif st.session_state.page == "Chat":
     st.title("Chat")
@@ -211,6 +233,10 @@ elif st.session_state.page == "Chat":
         st.session_state.messages.append({"role": "assistant", "content": response})
         save_message("assistant", response)
 
+# ═══════════════════════════════════════════════════════════════════════════
+# PAGE: JOURNAL
+# ═══════════════════════════════════════════════════════════════════════════
+
 elif st.session_state.page == "Journal":
     st.title("Journal")
     
@@ -223,6 +249,7 @@ elif st.session_state.page == "Journal":
         st.markdown(f"**Indexed:** {stats['total_vector_entries']}")
     
     st.markdown("---")
+    
     st.markdown("### New entry")
     
     phase = st.selectbox(
@@ -299,11 +326,16 @@ elif st.session_state.page == "Journal":
             </div>
             """, unsafe_allow_html=True)
 
+# ═══════════════════════════════════════════════════════════════════════════
+# PAGE: EXAMPLES
+# ═══════════════════════════════════════════════════════════════════════════
+
 elif st.session_state.page == "Examples":
     st.title("Examples")
     st.caption("Sample queries demonstrating different capabilities")
     
     st.markdown("---")
+    
     st.markdown("### Basic queries")
     
     basic_queries = [
@@ -358,6 +390,10 @@ elif st.session_state.page == "Examples":
                 st.session_state.page = "Chat"
                 st.rerun()
 
+# ═══════════════════════════════════════════════════════════════════════════
+# PAGE: ABOUT
+# ═══════════════════════════════════════════════════════════════════════════
+
 elif st.session_state.page == "About":
     st.title("About")
     
@@ -389,6 +425,6 @@ elif st.session_state.page == "About":
     
     st.markdown("### Contact")
     st.markdown("""
-    - anirudhak1269@example.com
+    - anirudhak1269@gmail.com
     - [LinkedIn](https://www.linkedin.com/in/anirudh-s-22ab19271)
     """)
